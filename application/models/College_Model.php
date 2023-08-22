@@ -6,7 +6,8 @@
         }
 
         //get the info from form and put in database table called College
-        public function put_college(){
+        public function put_clg()
+        {
             $data = array(
                 'clg_name' => $this->input->post('clg_name'),
                 'clg_email' => $this->input->post('clg_email'),
@@ -14,6 +15,7 @@
                 'clg_adr' => $this->input->post('clg_adr')
             );
 
-            return $this->db->insert('colleges',$data);
+            $this->db->insert('colleges', $data);
+            return $this->db->insert_id(); // Return the inserted clg_id
         }
     }

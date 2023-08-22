@@ -7,7 +7,8 @@
             <div class="form-group">
                 <label>NAME</label>
                 <input type="text" class="form-control" name="clg_name" placeholder="Enter college Name">
-                <?php echo form_error('clg_name', '<div class="text-danger">', '</div>'); ?>            </div>
+                <?php echo form_error('clg_name', '<div class="text-danger">', '</div>'); ?>           
+            </div>
             <div class="form-group">
                 <label>EMAIL</label>
                 <input type="email" class="form-control" name="clg_email" placeholder="Enter College Email">
