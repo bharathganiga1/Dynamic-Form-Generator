@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 	public $data;
+	public function __construct() {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('College_Model');
+    }
 	public function index()
 	{
 		$data['title'] = 'Home page';
@@ -12,19 +17,20 @@ class Home extends CI_Controller {
 	}
 
 	public function get_college(){
-		$this->load->library('form_validation');
-		$data['title'] = 'Home page';
-		$this->form_validation->set_rules('clg_name','Name','required');
-		$this->form_validation->set_rules('clg_email','Email','required');
-		$this->form_validation->set_rules('clg_phno','Contact Number','required');
-		
-		if($this->form_validation->run() === FALSE){
-			$this->load->view('header');
-			$this->load->view('home',$data);
-			$this->load->view('footer.php');
-            }else{
-                $this->College_Model->put_college();
-				die('Success!!');	
-            }
-	}
+    $this->load->library('form_validation');
+    $this->load->model('College_Model'); 
+    $data['title'] = 'Home page';
+    $this->form_validation->set_rules('clg_name','Name','required');
+    $this->form_validation->set_rules('clg_email','Email','required');
+    $this->form_validation->set_rules('clg_phno','Contact Number','required');
+
+    if($this->form_validation->run() === FALSE){
+        $this->load->view('header');
+        $this->load->view('home',$data);
+        $this->load->view('footer.php');
+    } else {
+        $this->College_Model->put_college();
+        redirect('configurations');   
+    }
+}
 }

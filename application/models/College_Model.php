@@ -1,6 +1,7 @@
 <?php 
     class College_Model extends CI_Model{
         public function __construct(){
+            $this->load->library('form_validation');
             $this->load->database();
         }
 
