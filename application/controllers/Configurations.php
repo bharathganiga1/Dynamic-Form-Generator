@@ -24,12 +24,12 @@
             $this->form_validation->set_rules('post_name', 'Post Name', 'trim|required');
             $this->form_validation->set_rules('input_type', 'Input Type', 'trim|required');
             $this->form_validation->set_rules('size_length', 'Size/Length', 'trim');
-            //$this->form_validation->set_rules('dropdown_option_name[]', 'Dropdown Option Name', 'required');
-            //$this->form_validation->set_rules('dropdown_option_value[]', 'Dropdown Option Value', 'required');
+            $this->form_validation->set_rules('option_value[]', 'Dropdown Option Value', 'trim');
             $this->form_validation->set_rules('is_required', 'Required', 'trim');
             $this->form_validation->set_rules('priority', 'Priority', 'trim|required|integer|greater_than_equal_to[1]');
 
-
+            //to send one controller to another
+            $clg_id = $this->input->post('clg_id');
             if($this->form_validation->run() === FALSE)
             {
                 $data['clg_id'] = $this->input->post('clg_id');
@@ -41,12 +41,11 @@
                 $action = $this->input->post('action');
                 if($action === 'add-more'){
                     $this->Configuration_Model->put_configuration();
-                    $data['clg_id'] = $this->input->post('clg_id');
-                    redirect('configurations',$data);
+                    redirect('configurations/index/' . $clg_id);
                     //die("add-more");
                 }else if($action === 'save-configuration'){
                     $this->Configuration_Model->put_configuration();
-                    die("success");
+                    redirect('Generates/index/' . $clg_id);
                 }
             }
         }

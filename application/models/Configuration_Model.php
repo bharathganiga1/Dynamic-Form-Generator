@@ -17,7 +17,7 @@
                 'input_type' => $this->input->post('input_type'),
                 'size' => $size,
                 'is_required' => $this->input->post('is_required') ? 1 : 0,
-                'dropdown' => $this->prepareDropdownOptions(),
+                'options' => $this->prepareOptions(),
                 'priority' => $this->input->post('priority')
             );
         
@@ -25,18 +25,18 @@
         }
         
 
-        public function prepareDropdownOptions() {
-            $optionNames = $this->input->post('dropdown_option_name');
-            $optionValues = $this->input->post('dropdown_option_value');
-            $dropdownOptions = array();
+        public function prepareOptions() {
+            $optionValues = $this->input->post('option_value');
+            $Options = array();
         
-            if ($optionNames && $optionValues) {
-                foreach ($optionNames as $index => $optionName) {
-                    $optionValue = isset($optionValues[$index]) ? $optionValues[$index] : '';
-                    $dropdownOptions[] = array('name' => $optionName, 'value' => $optionValue);
+            if ($optionValues) {
+                foreach ($optionValues as $index => $optionValue) {
+                    if($optionValue!=""){
+                        $Options[$index + 1] = $optionValue;
+                    }
                 }
             }
         
-            return json_encode($dropdownOptions);
-        }
+            return json_encode($Options);
+        }        
     }
