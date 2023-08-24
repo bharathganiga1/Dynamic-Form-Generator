@@ -26,12 +26,12 @@
             $this->form_validation->set_rules('size_length', 'Size/Length', 'trim');
             $this->form_validation->set_rules('option_value[]', 'Dropdown Option Value', 'trim');
             $this->form_validation->set_rules('is_required', 'Required', 'trim');
-            $this->form_validation->set_rules('priority', 'Priority', 'trim|required|integer|greater_than_equal_to[1]');
 
             //to send one controller to another
             $clg_id = $this->input->post('clg_id');
             if($this->form_validation->run() === FALSE)
             {
+                //error_log("validation fails");
                 $data['clg_id'] = $this->input->post('clg_id');
                 $this->load->view('header');
                 $this->load->view('fields',$data);

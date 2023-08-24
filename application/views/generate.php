@@ -1,5 +1,9 @@
-<h1><?php echo $title; ?></h1>
-
+<?php 
+    // Sort configurations based on priority
+    usort($configurations, function($a, $b) {
+        return $a['priority'] - $b['priority'];
+    });
+?>
 <?php echo form_open(''); ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -12,16 +16,77 @@
                 <div class="form-group">
                     <label><?php echo $configuration['field_label']; ?></label>
                     <input type="text" class="form-control" name="<?php echo $configuration['post_name']; ?>" 
-                        placeholder="Enter <?php echo $configuration['field_label']; ?>"
-                        <?php if ($configuration['is_required'] === '1'): ?>required<?php endif; ?>>
+                           placeholder="Enter <?php echo $configuration['field_label']; ?>"
+                           <?php if ($configuration['is_required'] === '1'): ?>required<?php endif; ?>>
                     <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>           
                 </div>
            
             <!-- for input type = textarea --> 
             <?php elseif ($configuration['input_type'] === 'Textarea'): ?>
-                
-            <?php endif; ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <textarea name="<?php echo $configuration['post_name']; ?>" rows="3" class="form-control" 
+                            <?php if ($configuration['is_required'] === '1'): ?>required<?php endif; ?>></textarea>
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
 
+            <!-- for input type = email --> 
+            <?php elseif ($configuration['input_type'] === 'Email'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <input type="email" class="form-control" name="<?php echo $configuration['post_name']?>">
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+
+            <!-- for input type = date --> 
+            <?php elseif ($configuration['input_type'] === 'Date'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <input type="date" class="form-control" name="<?php echo $configuration['post_name']?>">
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+            
+            <!-- for input type = file --> 
+            <?php elseif ($configuration['input_type'] === 'File'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <input type="file" class="form-control" name="<?php echo $configuration['post_name']?>">
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+
+            <!-- for input type = dropdown --> 
+            <?php elseif ($configuration['input_type'] === 'Dropdown'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                        <select name="<?php echo $configuration['post_name']; ?>" class="form-control"
+                            <?php if ($configuration['is_required'] === '1'): ?>required<?php endif; ?>>
+                            <?php
+                            $options = json_decode($configuration['options'], true);
+                            foreach ($options as $value => $label) {
+                                echo '<option value="' . $value . '">' . $label . '</option>';
+                            }
+                            ?>
+                        </select>
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+            
+            <!-- for input type = checkbox -->
+            <?php elseif ($configuration['input_type'] === 'Checkbox'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <?php
+                    $options = json_decode($configuration['options'], true);
+                    foreach ($options as $value => $label) {
+                        echo '<div class="checkbox">';
+                        echo '<label>';
+                        echo '<input type="checkbox" name="' . $configuration['post_name'] . '[]" value="' . $value . '"> ' . $label;
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                    ?>
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+            <?php endif; ?>
         <?php endforeach; ?>
         <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
         </form>

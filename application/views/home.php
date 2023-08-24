@@ -23,7 +23,7 @@
                 <label>ADDRESS</label>
                 <textarea class="form-control" name="clg_adr" rows="4" placeholder="Enter College Address"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-block"><span class="h3">Get Started --></span></button>
+            <button type="submit" class="btn btn-primary btn-block"><span class="h3">Get Started</span></button>
         </form>
     </div>
 </div>

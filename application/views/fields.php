@@ -27,12 +27,11 @@
                 <select id="input-type-select" class="form-control" name="input_type">
                     <option value="Textbox">Textbox</option>
                     <option value="Dropdown">Dropdown</option>
-                    <option value="Button">Button</option>
                     <option value="Date">Date</option>
                     <option value="Email">Email</option>
                     <option value="File">File</option>
-                    <option value="Submit">Submit</option>
                     <option value="Textarea">Textarea</option>
+                    <option value="Radio">Radio-Buttons</option>
                     <option value="Checkbox">Checkbox</option>
                 </select>
                 <?php echo form_error('input_type', '<div class="text-danger">', '</div>'); ?>
@@ -47,7 +46,7 @@
             </div>
 
 
-            <!-- if DropDown form field is selected -->
+            <!-- options field for dropdown,radio-buttons and checkboxs selected -->
             <div class="form-group" id="options-group" style="display: none;">
                 <label>Options</label>
                 <div class="option-fields">
@@ -83,12 +82,6 @@
                 </div>
             </div>
 
-            <!-- Add priority field -->
-            <div class="form-group">
-                <label>Priority</label>
-                <input type="number" class="form-control" name="priority" placeholder="Enter Priority" min="1">
-                <?php echo form_error('dropdown-options-group', '<div class="text-danger">', '</div>'); ?>
-            </div>
 
             <div class="form-group">
                 <div class="row">
@@ -108,13 +101,16 @@
 
     // Call the functions initially when the page loads
     document.addEventListener('DOMContentLoaded', function() {
-        handleSizeVisibility(); // Call the function to set initial visibility
-        handleOptionsVisibility(); // Call the function to set initial visibility of dropdown options
-        //handleCheckboxOptionsVisibility();//call the function to set initial visibilty of checkbox options
+        handleSizeVisibility();
+        handleOptionsVisibility(); 
 
         document.querySelector('.add-option').addEventListener('click', addOptionField);
-        //document.querySelector('.add-option-checkbox').addEventListener('click', Checkbox_addOptionField);
+    });
 
+    // Listen for changes in the "Input Type" select
+    document.getElementById('input-type-select').addEventListener('change', function() {
+        handleSizeVisibility();
+        handleOptionsVisibility();
     });
 
     // JavaScript function to handle the visibility of "Size/Length" field
@@ -140,24 +136,6 @@
             optionsGroup.style.display = 'none';
         }
     }
-     // JavaScript function to handle the visibility of "Checkbox" field and option fields
-    //  function handleCheckboxOptionsVisibility() {
-    //     var dropdownOptionsGroup = document.getElementById('checkbox-options-group');
-    //     var inputTypeSelect = document.getElementById('input-type-select');
-        
-    //     if (inputTypeSelect.value === 'Checkbox') {
-    //         dropdownOptionsGroup.style.display = 'block';
-    //     } else {
-    //         dropdownOptionsGroup.style.display = 'none';
-    //     }
-    // }
-
-    // Listen for changes in the "Input Type" select
-    document.getElementById('input-type-select').addEventListener('change', function() {
-        handleSizeVisibility();
-        handleOptionsVisibility();
-        //handleCheckboxOptionsVisibility();
-    });
 
     // JavaScript function to add a new option field for dropdown
     function addOptionField() {
@@ -172,22 +150,7 @@
         
         document.querySelector('.option-fields').appendChild(optionField);
     }
-
-     // JavaScript function to add a new option field for checkbox
-    //  function Checkbox_addOptionField() {
-    //     console.log("Checkbox_addOptionField() called");
-    //     var optionField = document.querySelector('.checkbox-option-field').cloneNode(true);
-    //     var removeButton = optionField.querySelector('.remove-option');
-        
-    //     removeButton.addEventListener('click', function() {
-    //         optionField.remove();
-    //     });
-
-    //     optionField.querySelector('input[name="checkbox_option_value[]"]').value = '';
-        
-    //     document.querySelector('.checkbox-option-fields').appendChild(optionField);
-    // }
-
 </script>
+
 
 <?php echo form_close(); ?>

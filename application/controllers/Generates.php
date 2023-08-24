@@ -10,7 +10,6 @@
             
             // Fetch configurations data from the model
             $data['configurations'] = $this->Generate_Model->get_configurations_by_clg_id($clg_id);
-
             $this->load->view('header');
             $this->load->view('/generate',$data);
             $this->load->view('footer.php');
