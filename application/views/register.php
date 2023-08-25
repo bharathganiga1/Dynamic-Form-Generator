@@ -1,5 +1,5 @@
 
-<?php echo form_open('home/get_college'); ?>
+<?php echo form_open('Home/register'); ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h1 class="text-center">Enter College Details</h1>
@@ -15,15 +15,17 @@
                 <?php echo form_error('clg_email', '<div class="text-danger">', '</div>'); ?>
             </div>
             <div class="form-group">
-                <label>CONTACT NUMBER</label>
-                <input type="tel" class="form-control" name="clg_phno" pattern="[0-9]{10}" placeholder="Enter Contact Number">
-                <?php echo form_error('clg_phno', '<div class="text-danger">', '</div>'); ?>
+                <label>PASSWORD</label>
+                <input type="password" class="form-control" name="clg_pass" placeholder="Enter password">
+                <?php echo form_error('clg_pass', '<div class="text-danger">', '</div>'); ?>
             </div>
             <div class="form-group">
-                <label>ADDRESS</label>
-                <textarea class="form-control" name="clg_adr" rows="4" placeholder="Enter College Address"></textarea>
+                <label>CONFIRM PASSWORD</label>
+                <input type="password" class="form-control" name="clg_pass2" placeholder="confirm password">
+                <?php echo form_error('clg_pass', '<div class="text-danger">', '</div>'); ?>
             </div>
-            <button type="submit" class="btn btn-primary btn-block"><span class="h3">Get Started</span></button>
+            
+            <button type="submit" class="btn btn-primary btn-block"><span class="h3">Register</span></button>
         </form>
     </div>
 </div>

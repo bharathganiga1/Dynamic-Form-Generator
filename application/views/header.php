@@ -17,7 +17,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">LOGIN</a></li>
-                    <li><a href="#">REGISTER</a></li>
+                    <li><a href="<?php echo base_url(); ?>Home/register">REGISTER</a></li>
                 </ul>
             </div>
         </div>

@@ -12,27 +12,47 @@ class Home extends CI_Controller {
 	{
 		$data['title'] = 'Home page';
 		$this->load->view('header');
-		$this->load->view('home',$data);
+		$this->load->view('register',$data);
 		$this->load->view('footer.php');
 	}
 
-	public function get_college(){
+	public function register(){
 
-        $this->load->library('form_validation');
-        $this->load->model('College_Model'); 
-        $data['title'] = 'Home page';
+        $data['title'] = 'Register Page';
+
         $this->form_validation->set_rules('clg_name','Name','required');
         $this->form_validation->set_rules('clg_email','Email','required');
-        $this->form_validation->set_rules('clg_phno','Contact Number','required');
+        $this->form_validation->set_rules('clg_pass','Password','required');
+        $this->form_validation->set_rules('clg_pass2','Confirm Password','matches[clg_pass]');
 
         if($this->form_validation->run() === FALSE){
             $this->load->view('header');
-            $this->load->view('home',$data);
+            $this->load->view('register',$data);
             $this->load->view('footer.php');
+            //die("fails");
         } else {
-            $clg_id = $this->College_Model->put_clg();
-            $data['clg_id'] = $clg_id;
-            redirect('configurations/index/' . $clg_id);   
+            $enc_password = md5($this->input->post('clg_pass'));
+            $clg_id = $this->College_Model->put_clg($enc_password);
+    
+            $this->session->set_flashdata('registered','Registration is succeded');
+            //$data['clg_id'] = $clg_id;
+
+            redirect('/Home/login');  //redirect to login page
         }
+    }
+    public function login(){
+
+        $this->form_validation->set_rules('clg_email','Email','required');
+        $this->form_validation->set_rules('clg_pass','Password','required');
+
+        if($this->form_validation->run() === FALSE){    //suppose validation fails 
+            $this->load->view('header');
+            $this->load->view('login');
+            $this->load->view('footer.php');
+        }else{
+            $email = $this->input->post('clg_email');
+            $enc_password = $this->input->post('clg_pass');
+        }
+            
     }
 }
