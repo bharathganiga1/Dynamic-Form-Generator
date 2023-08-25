@@ -11,18 +11,33 @@
             </div>
             <div id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo base_url(); ?>">HOME</a></li>
-                    <li><a href="#">PRIORITY</a></li>
-                    <li><a href="#">GET-FORM</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">LOGIN</a></li>
+                    <li><a href="<?php echo base_url(); ?>">HOME</a></li>
+                    <li><a href="<?php echo base_url(); ?>Home/login">LOGIN</a></li>
                     <li><a href="<?php echo base_url(); ?>Home/register">REGISTER</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container">
+
+        <!-- flash messages  for successfull registration-->
+        <?php if($this->session->flashdata('registered')): ?>
+            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('registered').'</p>'?>
+        <?php endif?>
+
+        <!-- <-- flash messages  for Invalid Login --> 
+        <?php if($this->session->flashdata('valid-login')): ?>
+            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('valid-login').'</p>'?>
+        <?php endif?>
+
+        <!-- flash messages  for Invalid Login -->
+        <?php if($this->session->flashdata('invalid-login')): ?>
+            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('invalid-login').'</p>'?>
+        <?php endif?>
+
+
 
 
 

@@ -12,7 +12,7 @@ class Home extends CI_Controller {
 	{
 		$data['title'] = 'Home page';
 		$this->load->view('header');
-		$this->load->view('register',$data);
+		$this->load->view('home',$data);
 		$this->load->view('footer.php');
 	}
 
@@ -32,11 +32,8 @@ class Home extends CI_Controller {
             //die("fails");
         } else {
             $enc_password = md5($this->input->post('clg_pass'));
-            $clg_id = $this->College_Model->put_clg($enc_password);
-    
+            $this->College_Model->register($enc_password);
             $this->session->set_flashdata('registered','Registration is succeded');
-            //$data['clg_id'] = $clg_id;
-
             redirect('/Home/login');  //redirect to login page
         }
     }
@@ -46,12 +43,24 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('clg_pass','Password','required');
 
         if($this->form_validation->run() === FALSE){    //suppose validation fails 
+            
             $this->load->view('header');
             $this->load->view('login');
             $this->load->view('footer.php');
         }else{
             $email = $this->input->post('clg_email');
-            $enc_password = $this->input->post('clg_pass');
+            $enc_password =md5($this->input->post('clg_pass'));
+
+            $clg_id = $this->College_Model->login($email,$enc_password);
+            if($clg_id){
+                $this->session->set_flashdata('valid-login','You have been successfully logged in');
+                redirect('Configurations/index/'.$clg_id);
+            }else{
+                $this->session->set_flashdata('invalid-login','Invalid Credentials,Please Try again!');
+                $this->load->view('header');
+                $this->load->view('login');
+                $this->load->view('footer.php');
+            }
         }
             
     }
