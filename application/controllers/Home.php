@@ -50,9 +50,15 @@ class Home extends CI_Controller {
         }else{
             $email = $this->input->post('clg_email');
             $enc_password =md5($this->input->post('clg_pass'));
-
             $clg_id = $this->College_Model->login($email,$enc_password);
             if($clg_id){
+                //create clg data
+                $clg_data = array(
+                    'clg_id' => $clg_id,
+                    'email' => $email,
+                    'logged_in'=>true
+                );
+                $this->session->set_userdata($clg_data);
                 $this->session->set_flashdata('valid-login','You have been successfully logged in');
                 redirect('Configurations/index/'.$clg_id);
             }else{
@@ -63,5 +69,15 @@ class Home extends CI_Controller {
             }
         }
             
+    }
+    public function logout(){
+        //unset userdata
+        $this->session->unset_userdata('clg_id');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('logged_in');
+
+        $this->session->set_flashdata('log-out','You have been Logged out!');
+
+        redirect('home/login');
     }
 }

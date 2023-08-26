@@ -7,6 +7,9 @@
         }
         public function index($clg_id = null)
         {
+            if(!$this->session->userdata('logged_in')){
+                redirect('Home/login');
+            }
             $data['title'] = 'Configuration page';
             $data['clg_id'] = $clg_id;
             $this->load->view('header');

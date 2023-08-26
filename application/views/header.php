@@ -14,8 +14,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo base_url(); ?>">HOME</a></li>
-                    <li><a href="<?php echo base_url(); ?>Home/login">LOGIN</a></li>
-                    <li><a href="<?php echo base_url(); ?>Home/register">REGISTER</a></li>
+                    <?php if(!$this->session->userdata('logged_in')): ?>
+                        <li><a href="<?php echo base_url(); ?>Home/login">LOGIN</a></li>
+                        <li><a href="<?php echo base_url(); ?>Home/register">REGISTER</a></li>
+                    <?php endif?>
+                    <?php if($this->session->userdata('logged_in')): ?>
+                        <li><a href="<?php echo base_url(); ?>Generates/index/<?php echo $this->session->userdata('clg_id'); ?>">GET-FORM</a></li>
+                        <li><a href="<?php echo base_url(); ?>Home/logout">LOGOUT</a></li>
+                    <?php endif?>
                 </ul>
             </div>
         </div>
@@ -34,7 +40,12 @@
 
         <!-- flash messages  for Invalid Login -->
         <?php if($this->session->flashdata('invalid-login')): ?>
-            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('invalid-login').'</p>'?>
+            <?php echo '<p class="alert alert-danger">'.$this->session->flashdata('invalid-login').'</p>'?>
+        <?php endif?>
+
+        <!-- flash messages  for Invalid Login -->
+        <?php if($this->session->flashdata('log-out')): ?>
+            <?php echo '<p class="alert alert-danger">'.$this->session->flashdata('log-out').'</p>'?>
         <?php endif?>
 
 
