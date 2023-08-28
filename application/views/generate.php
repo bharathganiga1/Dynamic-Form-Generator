@@ -4,7 +4,7 @@
         return $a['priority'] - $b['priority'];
     });
 ?>
-<?php echo form_open(''); ?>
+<?php echo form_open('Alumni/submit_data/'.$this->session->userdata('alumni_id')); ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h1 class="text-center">Generated Form</h1>
@@ -87,11 +87,15 @@
                     <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
                 </div>
             <?php endif; ?>
-        <?php endforeach; ?>           
-        <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
+        <?php endforeach; ?> 
+        <!-- display only for ALUMNI LOGIN-->
+        <?php if($this->session->userdata('alumni_id')): ?> 
+            <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
+        <?php endif; ?>
         </form>
     </div>
 </div>
+<!-- display only for COLLEGE LOGIN -->
 <?php if(!$this->session->userdata('alumni_id')): ?>
     <?php echo form_open('Configurations/edit_Priority/'.$clg_id); ?>
         <div class="form-group">
@@ -101,7 +105,7 @@
                         <button type="submit" name="action" value="edit" id="edit-btn" class="btn btn-primary btn-block">EDIT</button>
                     </div>
                     <div class="col-md-6">
-                        <button type="submit" name="action" value="save" id="save-btn" class="btn btn-primary btn-block">SAVE</button>
+                        <button type="submit" name="action" value="add-more" id="add-btn" class="btn btn-primary btn-block">ADD MORE</button>
                     </div>
                 </div>      
             </div>

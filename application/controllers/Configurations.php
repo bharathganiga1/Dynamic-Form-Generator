@@ -63,7 +63,7 @@
                 $this->load->view('/edit',$data);
                 $this->load->view('footer.php');
             }else{
-                redirect('home');
+                redirect('Configurations/index/'.$clg_id);
             }
         }
         public function update_priorities($clg_id) {

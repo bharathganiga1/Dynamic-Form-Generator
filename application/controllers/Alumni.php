@@ -59,4 +59,20 @@
                 }
             }
         }
+        public function submit_data($alumni_id){
+            //make sure user logged in as alumni
+            if(!$this->session->userdata('alumni_id')){
+                redirect('Alumni/alumni_login');
+            }
+
+            $alumni_data = $this->input->post();
+
+            if($this->Alumni_Model->store_alumni_data($alumni_id, $alumni_data)){
+                $this->session->set_flashdata('form_submitted','Your data Has been successfully submitted');
+                redirect('home');
+            }else{
+                $this->session->set_flashdata('form_unsubmitted','There was an error submitting your data');
+                redirect('alumni/alumni_login');
+            } 
+        }
     }

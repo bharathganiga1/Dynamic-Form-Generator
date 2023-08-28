@@ -75,6 +75,14 @@
             <?php echo '<p class="alert alert-danger">'.$this->session->flashdata('log-out').'</p>'?>
         <?php endif?>
 
+       
+        <?php if($this->session->flashdata('form_submitted')): ?>
+            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('form_submitted').'</p>'?>
+        <?php endif?>
+
+        <?php if($this->session->flashdata('form_unsubmitted')): ?>
+            <?php echo '<p class="alert alert-success">'.$this->session->flashdata('form_unsubmitted').'</p>'?>
+        <?php endif?>
 
 
 
