@@ -10,5 +10,7 @@
             $query = $this->db->get_where('configurations', array('clg_id' => $clg_id));
             return $query->result_array();
         }
+
+        
     }
 ?>

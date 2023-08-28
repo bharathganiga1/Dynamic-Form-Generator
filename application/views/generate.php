@@ -87,8 +87,24 @@
                     <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
                 </div>
             <?php endif; ?>
-        <?php endforeach; ?>
+        <?php endforeach; ?>           
         <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
         </form>
     </div>
 </div>
+<?php if(!$this->session->userdata('alumni_id')): ?>
+    <?php echo form_open('Configurations/edit_Priority/'.$clg_id); ?>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-6">
+                        <button type="submit" name="action" value="edit" id="edit-btn" class="btn btn-primary btn-block">EDIT</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" name="action" value="save" id="save-btn" class="btn btn-primary btn-block">SAVE</button>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    <?php echo form_close(); ?>
+<?php endif; ?>

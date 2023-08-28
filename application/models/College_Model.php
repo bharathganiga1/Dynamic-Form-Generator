@@ -6,7 +6,7 @@
         }
 
         //get the info from form and put in database table called College
-        public function register($enc_password)
+        public function clg_register($enc_password)
         {
             $data = array(
                 'clg_name' => $this->input->post('clg_name'),
@@ -17,8 +17,9 @@
             $this->db->insert('colleges', $data);
             return; //$this->db->insert_id(); // Return the inserted clg_id
         }
+        
 
-        public function login($email,$enc_password) {
+        public function clg_login($email,$enc_password) {
             $this->db->where('clg_email', $email);
             $this->db->where('clg_pass', $enc_password);
             $query = $this->db->get('colleges');
@@ -29,6 +30,7 @@
                 return false;
             }
         }
+        
         
         
     }

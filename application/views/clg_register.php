@@ -1,5 +1,5 @@
-
-<?php echo form_open('Home/register'); ?>
+<?php echo validation_errors(); ?>
+<?php echo form_open('Home/clg_register'); ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h1 class="text-center">Enter College Details</h1>

@@ -4,6 +4,7 @@
             parent::__construct();
             $this->load->library('form_validation');
             $this->load->model('Configuration_Model');
+            $this->load->model('Generate_Model');
         }
         public function index($clg_id = null)
         {
@@ -52,4 +53,27 @@
                 }
             }
         }
+        public function edit_Priority($clg_id){
+            $data['clg_id'] = $clg_id;
+            $data['configurations'] = $this->Generate_Model->get_configurations_by_clg_id($clg_id);
+            $action = $this->input->post('action');
+
+            if($action === 'edit'){
+                $this->load->view('header');
+                $this->load->view('/edit',$data);
+                $this->load->view('footer.php');
+            }else{
+                redirect('home');
+            }
+        }
+        public function update_priorities($clg_id) {
+            $submitted_priorities = $this->input->post('priority');
+        
+            foreach ($submitted_priorities as $config_id => $priority) {
+                $this->Configuration_Model->update_priority($config_id, $priority);
+            }
+        
+            redirect('Generates/index/' . $clg_id); 
+        }
+        
     }

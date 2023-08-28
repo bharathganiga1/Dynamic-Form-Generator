@@ -16,9 +16,9 @@ class Home extends CI_Controller {
 		$this->load->view('footer.php');
 	}
 
-	public function register(){
+	public function clg_register(){
 
-        $data['title'] = 'Register Page';
+        $data['title'] = 'College Register Page';
 
         $this->form_validation->set_rules('clg_name','Name','required');
         $this->form_validation->set_rules('clg_email','Email','required');
@@ -27,33 +27,34 @@ class Home extends CI_Controller {
 
         if($this->form_validation->run() === FALSE){
             $this->load->view('header');
-            $this->load->view('register',$data);
+            $this->load->view('clg_register',$data);
             $this->load->view('footer.php');
             //die("fails");
         } else {
             $enc_password = md5($this->input->post('clg_pass'));
-            $this->College_Model->register($enc_password);
-            $this->session->set_flashdata('registered','Registration is succeded');
-            redirect('/Home/login');  //redirect to login page
+            $this->College_Model->clg_register($enc_password);
+            $this->session->set_flashdata('clg_registered','College Registration is succeded');
+            redirect('/Home/clg_login');  //redirect to login page
         }
     }
-    public function login(){
+    
+    public function clg_login(){
 
         $this->form_validation->set_rules('clg_email','Email','required');
         $this->form_validation->set_rules('clg_pass','Password','required');
 
         if($this->form_validation->run() === FALSE){    //suppose validation fails 
-            
             $this->load->view('header');
-            $this->load->view('login');
+            $this->load->view('clg_login');
             $this->load->view('footer.php');
         }else{
             $email = $this->input->post('clg_email');
             $enc_password =md5($this->input->post('clg_pass'));
-            $clg_id = $this->College_Model->login($email,$enc_password);
+            $clg_id = $this->College_Model->clg_login($email,$enc_password);
             if($clg_id){
                 //create clg data
                 $clg_data = array(
+                    'alumni_id' =>false,
                     'clg_id' => $clg_id,
                     'email' => $email,
                     'logged_in'=>true
@@ -64,12 +65,13 @@ class Home extends CI_Controller {
             }else{
                 $this->session->set_flashdata('invalid-login','Invalid Credentials,Please Try again!');
                 $this->load->view('header');
-                $this->load->view('login');
+                $this->load->view('clg_login');
                 $this->load->view('footer.php');
             }
         }
             
     }
+    
     public function logout(){
         //unset userdata
         $this->session->unset_userdata('clg_id');
@@ -78,6 +80,6 @@ class Home extends CI_Controller {
 
         $this->session->set_flashdata('log-out','You have been Logged out!');
 
-        redirect('home/login');
+        redirect('home');
     }
 }

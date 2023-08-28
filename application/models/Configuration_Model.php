@@ -43,5 +43,12 @@
             }
         
             return json_encode($Options);
-        }        
+        } 
+        public function update_priority($config_id, $priority) {
+            $data = array('priority' => $priority);     
+            $this->db->where('config_id', $config_id);
+            $this->db->update('configurations', $data);
+        }
+        
+               
     }
