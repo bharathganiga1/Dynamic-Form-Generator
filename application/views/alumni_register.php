@@ -10,7 +10,7 @@
             </div>
             <div class="form-group">
                 <label >EMAIL</label>
-                <input type="email" class="form-control" name="alumni_email" placeholder="Enter Your Password">
+                <input type="email" class="form-control" name="alumni_email" placeholder="Enter Your Email">
                 <?php echo form_error('alumni_email', '<div class="text-danger">', '</div>'); ?> 
             </div>
             <div class="form-group">

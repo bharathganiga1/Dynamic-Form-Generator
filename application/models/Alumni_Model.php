@@ -32,30 +32,7 @@
             }
         }
         public function store_alumni_data($alumni_id, $data) {
-            // Fetch existing data for the alumni
-            $alumni = $this->db->get_where('alumni', array('alumni_id' => $alumni_id))->row();
-        
-            if ($alumni) {
-                // Fetch existing data as an associative array or initialize if null
-                $existing_data = json_decode($alumni->alumni_data, true);
-                if(!$existing_data){
-                    $existing_data =array();
-                }
-        
-                // Merge the new data with existing data
-                $merged_data = array_merge($existing_data, $data);
-        
-                // Convert the merged data back to JSON format
-                $json_data = json_encode($merged_data);
-        
-                // Update the alumni table with the new JSON data
-                $this->db->where('alumni_id', $alumni_id);
-                $this->db->update('alumni', array('alumni_data' => $json_data));
-        
-                return true;
-            }
-        
-            return false;
+            
         }
         
     }

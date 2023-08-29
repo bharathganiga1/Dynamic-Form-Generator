@@ -130,7 +130,7 @@
         var optionsGroup = document.getElementById('options-group');
         var inputTypeSelect = document.getElementById('input-type-select');
         
-        if (inputTypeSelect.value === 'Dropdown' || inputTypeSelect.value === 'Checkbox') {
+        if (inputTypeSelect.value === 'Dropdown' || inputTypeSelect.value === 'Checkbox'||inputTypeSelect.value ==='Radio' ) {
             optionsGroup.style.display = 'block';
         } else {
             optionsGroup.style.display = 'none';

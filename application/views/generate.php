@@ -87,7 +87,29 @@
                     <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
                 </div>
             <?php endif; ?>
+            <?php if ($configuration['input_type'] === 'Radio'): ?>
+                <div class="form-group">
+                    <label><?php echo $configuration['field_label']; ?></label>
+                    <div class="radio-buttons-row">
+                        <?php
+                        $options = json_decode($configuration['options'], true);
+                        foreach ($options as $value => $label) {
+                            echo '<div class="radio">';
+                            echo '<label>';
+                            echo '<input type="radio" name="' . $configuration['post_name'] . '" value="' . $value . '"> ' . $label;
+                            echo '</label>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
+                    <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
+                </div>
+            <?php endif; ?>
+
+
         <?php endforeach; ?> 
+
+        
         <!-- display only for ALUMNI LOGIN-->
         <?php if($this->session->userdata('alumni_id')): ?> 
             <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
