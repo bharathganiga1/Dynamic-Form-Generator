@@ -39,9 +39,8 @@
             }else{
                 $email = $this->input->post('alumni_email');
                 $enc_password =md5($this->input->post('alumni_pass'));
-                $data = $this->Alumni_Model->alumni_login($email,$enc_password);//array containing college id and alumni id
+                $data = $this->Alumni_Model->alumni_login($email,$enc_password);//array containing college id and alumni id for session data
                 if($data){
-                    //create clg data
                     $alumni_data = array(
                         'alumni_id' => $data['alumni_id'],
                         'clg_id' => $data['clg_id'],
@@ -66,8 +65,8 @@
             }
 
             $alumni_data = $this->input->post();
-
-            if($this->Alumni_Model->store_alumni_data($alumni_id, $alumni_data)){
+            $clg_id = $this->session->userdata('clg_id');
+            if($this->Alumni_Model->store_alumni_data($alumni_id, $clg_id,$alumni_data)){
                 $this->session->set_flashdata('form_submitted','Your data Has been successfully submitted');
                 redirect('home');
             }else{

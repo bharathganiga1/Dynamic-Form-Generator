@@ -87,6 +87,8 @@
                     <?php echo form_error($configuration['post_name'], '<div class="text-danger">', '</div>'); ?>
                 </div>
             <?php endif; ?>
+
+            <!-- for radio buttons  -->
             <?php if ($configuration['input_type'] === 'Radio'): ?>
                 <div class="form-group">
                     <label><?php echo $configuration['field_label']; ?></label>
